@@ -24,6 +24,10 @@ Released   : 20131223
 <script src="./lib/prototype.js"></script>
 <script src="./src/scriptaculous.js"></script>
 <script>
+	var cartItemInnerHTML = "	<img src='images/Flappy_Bird_icon.png' alt='' class='image' />" +
+		"	<h3>Flappy Bird</h3>" +
+		"	<a href='#nowhere' class='button button-small' onclick='removeButtonAction(this, this.parentNode)'>Remove</a>";
+
 	function highlightButton(button) {
 		new Effect.Highlight(button, {startcolor: '#F3F3F3', endcolor: '#1ABC9C', restorecolor: '#1ABC9C'});
 	}
@@ -37,19 +41,35 @@ Released   : 20131223
 		highlightButton(button);
 		new Effect.ScrollTo(targetId);
 	}
+	
+	function addButtonAction(button) {
+		highlightButton(button);
+		var item = document.createElement("div");
+		item.setAttribute("class", "cartItem");
+		item.setAttribute("style", "display: none;");
+		item.innerHTML = cartItemInnerHTML;
+		document.getElementById("cartItems").appendChild(item);
+		new Effect.Appear(item, {duration: 0.25} );
+	}
+	
+	function removeButtonAction(button, item) {
+		highlightButton(button);
+		new Effect.Fade(item, {duration: 0.25} );
+		
+	}
 </script>
 </head>
 <body>
 <div id="header-wrapper">
 	<div id="header" class="container">
 		<div id="logo">
-			<h1><span class="icon icon-cog"></span><a href="#">World's Worst Game Store</a></h1>
+			<h1><a href="#">World's Worst Game Store</a></h1>
 			<div id="menu">
 				<ul>
 					<li class="current_page_item">
 						<a href="#nowhere" accesskey="1" title="" onclick="highlightButton(this)">Home</a>
 					</li>
-					<li><a id="browseButton" href="#nowhere" accesskey="2" title="" onclick="browseButtonAction()">Browse</a></li>
+					<li><a id="browseButton" href="#nowhere" accesskey="2" title="" onclick="browseButtonAction()">Browse<span class="icon icon-arrow-down"</a></li>
 					<li>
 						<a href="#nowhere" accesskey="3" title="" onclick="highlightButton(this)">News</a>
 					</li>
@@ -69,22 +89,22 @@ Released   : 20131223
 		<div><span class="arrow-down"></span></div>
 		<div id="tbox1">
 			<div class="title">
-				<h2>Top Selling</h2>
+				<h2>New Releases</h2>
 			</div>
 			<p>Nullam non wisi a sem semper eleifend. Donec mattis libero eget urna. Duis pretium velit ac suscipit mauris. Proin eu wisi suscipit nulla suscipit interdum.</p>
-			<a href="#nowhere" class="button" onclick="navButtonAction(this, 'topSelling')">Go!</a> </div>
+			<a href="#nowhere" class="button" onclick="navButtonAction(this, 'newReleases')">Go!</a> </div>
 		<div id="tbox2">
 			<div class="title">
-				<h2>By Category</h2>
+				<h2>Top Selling</h2>
 			</div>
 			<p>Proin eu wisi suscipit nulla suscipit interdum. Nullam non wisi a sem semper suscipit eleifend. Donec mattis libero eget urna. Duis  velit ac mauris.</p>
-			<a href="#nowhere" class="button" onclick="highlightButton(this)">Go!</a> </div>
+			<a href="#nowhere" class="button" onclick="navButtonAction(this, 'topSelling')">Go!</a> </div>
 		<div id="tbox3">
 			<div class="title">
-				<h2>Alphabetical</h2>
+				<h2>Browse All</h2>
 			</div>
 			<p>Donec mattis libero eget urna. Duis pretium velit ac mauris. Proin eu wisi suscipit nulla suscipit interdum. Nullam non wisi a sem suscipit  eleifend.</p>
-			<a href="#nowhere" class="button" onclick="highlightButton(this)">Go!</a> </div>
+			<a href="#nowhere" class="button" onclick="navButtonAction(this, 'allGames')">Go!</a> </div>
 	</div>
 </div>
 
@@ -106,25 +126,25 @@ Released   : 20131223
 				<a href="#nowhere"><img src="images/Flappy_Bird_icon.png" alt="" class="image image-full" /></a>
 				<h3>Flappy Bird</h3>
 				<p>Tap the screen! Dodge the pipes! Slowly lose your mind!</p>
-				<a href="#nowhere" class="button button-small" onclick="highlightButton(this)">Best Selling</a> </div>
+				<a href="#nowhere" class="button" onclick="addButtonAction(this)">Add to Cart</a> </div>
 		</div>
 		<div class="column2">
 			<div class="box"> <a href="#nowhere"><img src="images/Flappy_Bird_icon.png" alt="" class="image image-full" /></a>
 				<h3>Flappy Bird</h3>
 				<p>Tap the screen! Dodge the pipes! Slowly lose your mind!</p>
-				<a href="#nowhere" class="button button-small" onclick="highlightButton(this)">New Releases</a> </div>
+				<a href="#nowhere" class="button" onclick="addButtonAction(this)">Add to Cart</a> </div>
 		</div>
 		<div class="column3">
 			<div class="box"> <a href="#nowhere"><img src="images/Flappy_Bird_icon.png" alt="" class="image image-full" /></a>
 				<h3>Flappy Bird</h3>
 				<p>Tap the screen! Dodge the pipes! Slowly lose your mind!</p>
-				<a href="#nowhere" class="button button-small" onclick="highlightButton(this)">Staff Picks</a> </div>
+				<a href="#nowhere" class="button" onclick="addButtonAction(this)">Add to Cart</a> </div>
 		</div>
 		<div class="column4">
 			<div class="box"> <a href="#nowhere"><img src="images/Flappy_Bird_icon.png" alt="" class="image image-full" /></a>
 				<h3>Flappy Bird</h3>
 				<p>Tap the screen! Dodge the pipes! Slowly lose your mind!</p>
-				<a href="#nowhere" class="button button-small" onclick="highlightButton(this)">User Favorites</a> </div>
+				<a href="#nowhere" class="button" onclick="addButtonAction(this)">Add to Cart</a> </div>
 		</div>
 	</div>
 	
@@ -136,62 +156,70 @@ Released   : 20131223
 				<a href="#nowhere"><img src="images/Flappy_Bird_icon.png" alt="" class="image image-full" /></a>
 				<h3>Flappy Bird</h3>
 				<p>Tap the screen! Dodge the pipes! Slowly lose your mind!</p>
-				<a href="#nowhere" class="button button-small" onclick="highlightButton(this)">Best Selling</a> </div>
+				<a href="#nowhere" class="button" onclick="addButtonAction(this)">Add to Cart</a> </div>
 		</div>
 		<div class="column2">
 			<div class="box"> <a href="#nowhere"><img src="images/Flappy_Bird_icon.png" alt="" class="image image-full" /></a>
 				<h3>Flappy Bird</h3>
 				<p>Tap the screen! Dodge the pipes! Slowly lose your mind!</p>
-				<a href="#nowhere" class="button button-small" onclick="highlightButton(this)">New Releases</a> </div>
+				<a href="#nowhere" class="button" onclick="addButtonAction(this)">Add to Cart</a> </div>
 		</div>
 		<div class="column3">
 			<div class="box"> <a href="#nowhere"><img src="images/Flappy_Bird_icon.png" alt="" class="image image-full" /></a>
 				<h3>Flappy Bird</h3>
 				<p>Tap the screen! Dodge the pipes! Slowly lose your mind!</p>
-				<a href="#nowhere" class="button button-small" onclick="highlightButton(this)">Staff Picks</a> </div>
+				<a href="#nowhere" class="button" onclick="addButtonAction(this)">Add to Cart</a> </div>
 		</div>
 		<div class="column4">
 			<div class="box"> <a href="#nowhere"><img src="images/Flappy_Bird_icon.png" alt="" class="image image-full" /></a>
 				<h3>Flappy Bird</h3>
 				<p>Tap the screen! Dodge the pipes! Slowly lose your mind!</p>
-				<a href="#nowhere" class="button button-small" onclick="highlightButton(this)">User Favorites</a> </div>
+				<a href="#nowhere" class="button" onclick="addButtonAction(this)">Add to Cart</a> </div>
 		</div>
 	</div>
 	
-	<!--Top Rated-->
+	<!--All Games-->
 	<div class="portfolio container">
-		<h2 id="topRated">Top Rated</h2>
+		<h2 id="allGames">All Games</h2>
 		<div class="column1">
 			<div class="box">
 				<a href="#nowhere"><img src="images/Flappy_Bird_icon.png" alt="" class="image image-full" /></a>
 				<h3>Flappy Bird</h3>
 				<p>Tap the screen! Dodge the pipes! Slowly lose your mind!</p>
-				<a href="#nowhere" class="button button-small" onclick="highlightButton(this)">Best Selling</a> </div>
+				<a href="#nowhere" class="button" onclick="addButtonAction(this)">Add to Cart</a> </div>
 		</div>
 		<div class="column2">
 			<div class="box"> <a href="#nowhere"><img src="images/Flappy_Bird_icon.png" alt="" class="image image-full" /></a>
 				<h3>Flappy Bird</h3>
 				<p>Tap the screen! Dodge the pipes! Slowly lose your mind!</p>
-				<a href="#nowhere" class="button button-small" onclick="highlightButton(this)">New Releases</a> </div>
+				<a href="#nowhere" class="button" onclick="addButtonAction(this)">Add to Cart</a> </div>
 		</div>
 		<div class="column3">
 			<div class="box"> <a href="#nowhere"><img src="images/Flappy_Bird_icon.png" alt="" class="image image-full" /></a>
 				<h3>Flappy Bird</h3>
 				<p>Tap the screen! Dodge the pipes! Slowly lose your mind!</p>
-				<a href="#nowhere" class="button button-small" onclick="highlightButton(this)">Staff Picks</a> </div>
+				<a href="#nowhere" class="button" onclick="addButtonAction(this)">Add to Cart</a> </div>
 		</div>
 		<div class="column4">
 			<div class="box"> <a href="#nowhere"><img src="images/Flappy_Bird_icon.png" alt="" class="image image-full" /></a>
 				<h3>Flappy Bird</h3>
 				<p>Tap the screen! Dodge the pipes! Slowly lose your mind!</p>
-				<a href="#nowhere" class="button button-small" onclick="highlightButton(this)">User Favorites</a> </div>
+				<a href="#nowhere" class="button" onclick="addButtonAction(this)">Add to Cart</a> </div>
 		</div>
 	</div>
 </div>
 
 <!--Shopping Cart-->
 <div id="cart" class="container">
-	cart contents go here
+	<h3>Shopping Cart</h3>
+	<span id="cartItems">
+		<!--items added to cart will go here-->
+	</span>
+		<div class="cartControls">
+			<a href="#nowhere" class="button button-small" onclick="highlightButton(this)">Checkout</a>
+		</div>
+
+
 </div>
 
 <div id="copyright" class="container">
